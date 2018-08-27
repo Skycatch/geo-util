@@ -1,0 +1,35 @@
+{
+  "name": "@skycatch/geo-util",
+  "version": "1.0.0",
+  "description": "coordinates & projections utility",
+  "main": "index.js",
+  "scripts": {
+    "document": "jsdoc2md -f 'lib/**/*.js' > doc/README.md",
+    "lint": "eslint .",
+    "setup-hooks": "ln -s ../../scripts/git-hooks/pre-commit .git/hooks/pre-commit",
+    "test": "lab -c -a code -r console -o stdout -r lab-markdown-reporter -o doc/coverage.md --coverage-path lib -L"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Skycatch/geo-util.git"
+  },
+  "author": "David Chen <david@skycatch.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Skycatch/geo-util/issues"
+  },
+  "homepage": "https://github.com/Skycatch/geo-util#readme",
+  "dependencies": {
+    "proj4": "^2.5.0"
+  },
+  "devDependencies": {
+    "code": "^5.2.0",
+    "eslint": "^5.0.1",
+    "eslint-config-hapi": "^12.0.0",
+    "eslint-config-skycatch": "^1.2.0",
+    "eslint-plugin-hapi": "^4.1.0",
+    "jsdoc-to-markdown": "^4.0.1",
+    "lab": "^15.5.0",
+    "lab-markdown-reporter": "^1.0.2"
+  }
+}
