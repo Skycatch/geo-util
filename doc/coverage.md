@@ -1,21 +1,33 @@
 # Code Quality Report  
-Wed Aug 29 2018 13:26:45 GMT-0700 (PDT)  
+Thu Aug 30 2018 14:15:03 GMT-0700 (PDT)  
   
 ## Tests
     
+**UtmUtil**  
+  
 **UtmUtil#getZone**  
 ✔ 1) returns the UTM zone from lat/lon (3 ms)  
 ✔ 2) throws an error on invalid lat/lon (1 ms)  
   
 **UtmUtil#getProj4**  
 ✔ 3) returns the proj4 string (1 ms)  
+✔ 4) throws an error on invalid utm zone (0 ms)  
+  
+**UtmUtil#getUtmCoord**  
+✔ 5) returns the UTM coordinate (3 ms)  
+  
+**UtmUtil#getCustomProj4**  
+✔ 6) returns proj4 string for any given lat/lon (0 ms)  
+  
+**UtmUtil#getEPSGCode**  
+✔ 7) returns ESPG code for any given lat/lon (1 ms)  
   
   
-3 tests  
+7 tests  
 0 tests failed  
 0 tests skipped  
   
-Test duration: 13 ms  
+Test duration: 16 ms  
   
   
 ## Leaks  
@@ -24,7 +36,7 @@ No global variable leaks detected
   
 ## Coverage  
 Threshold: 0%  
-Coverage: 75.00% (13/52)  
+Coverage: 100.00%  
   
   
 ## Linting  
