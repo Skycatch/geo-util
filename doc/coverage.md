@@ -1,5 +1,5 @@
 # Code Quality Report  
-Thu Aug 30 2018 14:15:03 GMT-0700 (PDT)  
+Thu Aug 30 2018 15:14:44 GMT-0700 (PDT)  
   
 ## Tests
     
@@ -7,7 +7,7 @@ Thu Aug 30 2018 14:15:03 GMT-0700 (PDT)
   
 **UtmUtil#getZone**  
 ✔ 1) returns the UTM zone from lat/lon (3 ms)  
-✔ 2) throws an error on invalid lat/lon (1 ms)  
+✔ 2) throws an error on invalid lat/lon (0 ms)  
   
 **UtmUtil#getProj4**  
 ✔ 3) returns the proj4 string (1 ms)  
@@ -27,7 +27,7 @@ Thu Aug 30 2018 14:15:03 GMT-0700 (PDT)
 0 tests failed  
 0 tests skipped  
   
-Test duration: 16 ms  
+Test duration: 20 ms  
   
   
 ## Leaks  

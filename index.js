@@ -1,5 +1,5 @@
 'use strict';
 
 module.exports = {
-  utmUtil: require('../lib/util_util')
+  utmUtil: require('../lib/utm_util')
 };
