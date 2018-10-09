@@ -119,6 +119,23 @@ describe('UtmUtil', () => {
       }
 
     });
+
+    it('returns the UTM coordinate of given zone', () => {
+
+      const points = [
+        { lat: 38, lon: -122, northing: 4217628.24, easting: 60877.58, zone: '11N' },
+        { lat: 32, lon: 94, northing: 3561928.30, easting: 1161912.96, zone: '45N' }
+      ];
+
+      for (const point of points) {
+
+        const coord = UtmUtil.getUtmCoord(point.lat, point.lon, point.zone);
+        expect(coord.northing).to.about(point.northing, 0.01);
+        expect(coord.easting).to.about(point.easting, 0.01);
+        expect(coord.zone).to.equal(point.zone);
+      }
+
+    });
   });
 
   describe('UtmUtil#getCustomProj4', () => {

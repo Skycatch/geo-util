@@ -1,6 +1,6 @@
 {
   "name": "@skycatch/geo-util",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "coordinates & projections utility",
   "main": "index.js",
   "scripts": {
