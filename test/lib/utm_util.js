@@ -151,8 +151,8 @@ describe('UtmUtil', () => {
       for (const point of points) {
 
         const coord = UtmUtil.getLatLon(point.northing, point.easting, point.zone);
-        expect(coord.lat).to.about(point.lat, 0.01);
-        expect(coord.lon).to.about(point.lon, 0.01);
+        expect(coord.lat).to.about(point.lat, 0.000001);
+        expect(coord.lon).to.about(point.lon, 0.000001);
       }
 
     });
