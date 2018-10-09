@@ -1,5 +1,5 @@
 # Code Quality Report  
-Tue Oct 09 2018 16:29:52 GMT-0700 (PDT)  
+Tue Oct 09 2018 16:30:09 GMT-0700 (PDT)  
   
 ## Tests
     
@@ -14,7 +14,7 @@ Tue Oct 09 2018 16:29:52 GMT-0700 (PDT)
 ✔ 2) returns the proj4 string from lat/lon (1 ms)  
   
 **StereaUtil#getCoord**  
-✔ 3) returns the projected coordinate (2 ms)  
+✔ 3) returns the projected coordinate (3 ms)  
   
 **StereaUtil#getLatLon**  
 ✔ 4) returns the lat lon coordinate (1 ms)  
@@ -22,11 +22,11 @@ Tue Oct 09 2018 16:29:52 GMT-0700 (PDT)
 **UtmUtil**  
   
 **UtmUtil#getZone**  
-✔ 5) returns the UTM zone from lat/lon (0 ms)  
-✔ 6) throws an error on invalid lat/lon (1 ms)  
+✔ 5) returns the UTM zone from lat/lon (1 ms)  
+✔ 6) throws an error on invalid lat/lon (0 ms)  
   
 **UtmUtil#getProj4**  
-✔ 7) returns the proj4 string (0 ms)  
+✔ 7) returns the proj4 string (1 ms)  
 ✔ 8) throws an error on invalid utm zone (1 ms)  
   
 **UtmUtil#getCoord**  
@@ -40,14 +40,14 @@ Tue Oct 09 2018 16:29:52 GMT-0700 (PDT)
 ✔ 12) returns proj4 string for any given lat/lon (0 ms)  
   
 **UtmUtil#getEPSGCode**  
-✔ 13) returns ESPG code for any given lat/lon (0 ms)  
+✔ 13) returns ESPG code for any given lat/lon (1 ms)  
   
   
 13 tests  
 0 tests failed  
 0 tests skipped  
   
-Test duration: 39 ms  
+Test duration: 40 ms  
   
   
 ## Leaks  
