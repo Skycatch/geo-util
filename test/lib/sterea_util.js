@@ -63,8 +63,8 @@ describe('StereaUtil', () => {
       for (const point of points) {
 
         const coord = StereaUtil.getLatLon(point.northing, point.easting, point.lat0, point.lon0);
-        expect(coord.lat).to.about(point.lat, 0.01);
-        expect(coord.lon).to.about(point.lon, 0.01);
+        expect(coord.lat).to.about(point.lat, 0.000001);
+        expect(coord.lon).to.about(point.lon, 0.000001);
       }
 
     });
