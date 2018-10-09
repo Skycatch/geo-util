@@ -50,4 +50,23 @@ describe('StereaUtil', () => {
     });
   });
 
+  describe('StereaUtil#getLatLon', () => {
+
+    it('returns the lat lon coordinate', () => {
+
+      const points = [
+        { lat: 38, lon: -122, northing: 110989.84, easting: 0, lat0: 37, lon0: -122 },
+        { lat: 32, lon: 94, northing: 0, easting: 0, lat0: 32, lon0: 94 },
+        { lat: 2, lon: -1, northing: -55287.96, easting: 11125.42, lat0: 2.5, lon0: -1.1 }
+      ];
+
+      for (const point of points) {
+
+        const coord = StereaUtil.getLatLon(point.northing, point.easting, point.lat0, point.lon0);
+        expect(coord.lat).to.about(point.lat, 0.01);
+        expect(coord.lon).to.about(point.lon, 0.01);
+      }
+
+    });
+  });
 });

@@ -100,7 +100,7 @@ describe('UtmUtil', () => {
     });
   });
 
-  describe('UtmUtil#getUtmCoord', () => {
+  describe('UtmUtil#getCoord', () => {
 
     it('returns the UTM coordinate', () => {
 
@@ -112,7 +112,7 @@ describe('UtmUtil', () => {
 
       for (const point of points) {
 
-        const coord = UtmUtil.getUtmCoord(point.lat, point.lon);
+        const coord = UtmUtil.getCoord(point.lat, point.lon);
         expect(coord.northing).to.about(point.northing, 0.01);
         expect(coord.easting).to.about(point.easting, 0.01);
         expect(coord.zone).to.equal(point.zone);
@@ -129,13 +129,34 @@ describe('UtmUtil', () => {
 
       for (const point of points) {
 
-        const coord = UtmUtil.getUtmCoord(point.lat, point.lon, point.zone);
+        const coord = UtmUtil.getCoord(point.lat, point.lon, point.zone);
         expect(coord.northing).to.about(point.northing, 0.01);
         expect(coord.easting).to.about(point.easting, 0.01);
         expect(coord.zone).to.equal(point.zone);
       }
 
     });
+  });
+
+  describe('UtmUtil#getLatLon', () => {
+
+    it('returns the lat/lon coordinate', () => {
+
+      const points = [
+        { lat: 38, lon: -122, northing: 4206286.75, easting: 587798.41, zone: '10N' },
+        { lat: 32, lon: 94, northing: 3540872.53, easting: 594457.46, zone: '46N' },
+        { lat: 2, lon: -1, northing: 221196.53, easting: 722460.63, zone: '30N' }
+      ];
+
+      for (const point of points) {
+
+        const coord = UtmUtil.getLatLon(point.northing, point.easting, point.zone);
+        expect(coord.lat).to.about(point.lat, 0.01);
+        expect(coord.lon).to.about(point.lon, 0.01);
+      }
+
+    });
+
   });
 
   describe('UtmUtil#getCustomProj4', () => {
