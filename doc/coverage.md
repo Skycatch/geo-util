@@ -1,5 +1,5 @@
 # Code Quality Report  
-Tue Oct 09 2018 16:30:09 GMT-0700 (PDT)  
+Tue Jun 25 2019 22:00:09 GMT-0700 (PDT)  
   
 ## Tests
     
@@ -14,7 +14,7 @@ Tue Oct 09 2018 16:30:09 GMT-0700 (PDT)
 ✔ 2) returns the proj4 string from lat/lon (1 ms)  
   
 **StereaUtil#getCoord**  
-✔ 3) returns the projected coordinate (3 ms)  
+✔ 3) returns the projected coordinate (2 ms)  
   
 **StereaUtil#getLatLon**  
 ✔ 4) returns the lat lon coordinate (1 ms)  
@@ -27,7 +27,7 @@ Tue Oct 09 2018 16:30:09 GMT-0700 (PDT)
   
 **UtmUtil#getProj4**  
 ✔ 7) returns the proj4 string (1 ms)  
-✔ 8) throws an error on invalid utm zone (1 ms)  
+✔ 8) throws an error on invalid utm zone (0 ms)  
   
 **UtmUtil#getCoord**  
 ✔ 9) returns the UTM coordinate (2 ms)  
@@ -56,11 +56,14 @@ No global variable leaks detected
   
 ## Coverage  
 Threshold: 0%  
-Coverage: 100.00%  
+Coverage: 99.03% (1/103)  
   
   
 ## Linting  
 Warnings threshold: 0  
 Errors threshold: 0  
-No issues  
+  
+**undefined**  
+Line undefined: undefined - Cannot find module 'eslint-config-skycatch'
+Referenced from: /Users/andre/Code/github/skycatch/geo-util/.eslintrc  
   
