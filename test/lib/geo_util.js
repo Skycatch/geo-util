@@ -19,7 +19,7 @@ describe('GeoUtil', () => {
       ]
 
       const center = GeoUtil.getCenter(points)
-      //lon: -162.86568431, lat: 68.04679006500001
+      // lon: -162.86568431, lat: 68.04679006500001
       expect(center.lat).to.be.about(68.04679006, 0.000001)
       expect(center.lon).to.be.about(-162.865684, 0.000001)
     })

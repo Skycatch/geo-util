@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [v1.1.0]
+### Added
+- GeographicTilingScheme to help with tile pyramid calculations
+### Changed
+- Use standard.js for formatting and linting
+- Use husky.js for autoformatting
+
 ## [v1.0.6]
 ### Added
 - inverse coordinate calcuations for utm & sterea
@@ -31,6 +38,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 - initial commit
 
+[1.1.0]: https://github.com/skycatch/geo-util/compare/v1.1.0...v1.0.5
 [1.0.5]: https://github.com/skycatch/geo-util/compare/v1.0.5...v1.0.4
 [1.0.4]: https://github.com/skycatch/geo-util/compare/v1.0.4...v1.0.3
 [1.0.3]: https://github.com/skycatch/geo-util/compare/v1.0.3...v1.0.2
