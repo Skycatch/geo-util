@@ -1,53 +1,71 @@
 # Code Quality Report  
-Tue Oct 09 2018 16:30:09 GMT-0700 (PDT)  
+Thu Jun 27 2019 22:04:00 GMT-0700 (PDT)  
   
 ## Tests
     
 **GeoUtil**  
   
 **GeoUtil#getCenter**  
-✔ 1) returns the center (3 ms)  
+✔ 1) returns the center (2 ms)  
+  
+**GeographicTilingScheme**  
+  
+**positionToTileXY**  
+✔ 2) should calculate the tile origin for lat=37.8238667 lon=-122.3681195 level=14} (1 ms)  
+  
+**tileXYToRectangle**  
+✔ 3) should calculate the tile rectangle for the tile (1 ms)  
+  
+**tilesForPositionsAtLevel**  
+✔ 4) should calculate the tiles needed to cover a set of positions (1 ms)  
+✔ 5) should calculate the tiles needed to cover a set of positions (0 ms)  
+  
+**rectangleForPositionsAtLevel**  
+✔ 6) should calculate the bounding rectangle in radians for a set of positions (1 ms)  
+  
+**nativeRectangleForPositionsAtLevel**  
+✔ 7) should calculate the bounding rectangle in degrees for a set of positions (1 ms)  
   
 **StereaUtil**  
   
 **StereaUtil#getProj4**  
-✔ 2) returns the proj4 string from lat/lon (1 ms)  
+✔ 8) returns the proj4 string from lat/lon (0 ms)  
   
 **StereaUtil#getCoord**  
-✔ 3) returns the projected coordinate (3 ms)  
+✔ 9) returns the projected coordinate (2 ms)  
   
 **StereaUtil#getLatLon**  
-✔ 4) returns the lat lon coordinate (1 ms)  
+✔ 10) returns the lat lon coordinate (1 ms)  
   
 **UtmUtil**  
   
 **UtmUtil#getZone**  
-✔ 5) returns the UTM zone from lat/lon (1 ms)  
-✔ 6) throws an error on invalid lat/lon (0 ms)  
+✔ 11) returns the UTM zone from lat/lon (1 ms)  
+✔ 12) throws an error on invalid lat/lon (0 ms)  
   
 **UtmUtil#getProj4**  
-✔ 7) returns the proj4 string (1 ms)  
-✔ 8) throws an error on invalid utm zone (1 ms)  
+✔ 13) returns the proj4 string (0 ms)  
+✔ 14) throws an error on invalid utm zone (1 ms)  
   
 **UtmUtil#getCoord**  
-✔ 9) returns the UTM coordinate (2 ms)  
-✔ 10) returns the UTM coordinate of given zone (1 ms)  
+✔ 15) returns the UTM coordinate (2 ms)  
+✔ 16) returns the UTM coordinate of given zone (0 ms)  
   
 **UtmUtil#getLatLon**  
-✔ 11) returns the lat/lon coordinate (1 ms)  
+✔ 17) returns the lat/lon coordinate (1 ms)  
   
 **UtmUtil#getCustomProj4**  
-✔ 12) returns proj4 string for any given lat/lon (0 ms)  
+✔ 18) returns proj4 string for any given lat/lon (0 ms)  
   
 **UtmUtil#getEPSGCode**  
-✔ 13) returns ESPG code for any given lat/lon (1 ms)  
+✔ 19) returns ESPG code for any given lat/lon (1 ms)  
   
   
-13 tests  
+19 tests  
 0 tests failed  
 0 tests skipped  
   
-Test duration: 40 ms  
+Test duration: 30 ms  
   
   
 ## Leaks  
@@ -56,11 +74,5 @@ No global variable leaks detected
   
 ## Coverage  
 Threshold: 0%  
-Coverage: 100.00%  
-  
-  
-## Linting  
-Warnings threshold: 0  
-Errors threshold: 0  
-No issues  
+Coverage: 95.95% (9/222)  
   

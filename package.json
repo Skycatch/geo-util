@@ -4,10 +4,9 @@
   "description": "coordinates & projections utility",
   "main": "index.js",
   "scripts": {
-    "document": "jsdoc2md -f 'lib/**/*.js' > doc/README.md",
-    "lint": "eslint .",
-    "setup-hooks": "ln -s ../../scripts/git-hooks/pre-commit .git/hooks/pre-commit",
-    "test": "lab -c -a code -r console -o stdout -r lab-markdown-reporter -o doc/coverage.md --coverage-path lib -L"
+    "document": "jsdoc2md -f 'lib/**/*.js' > doc/API.md",
+    "precommit": "lint-staged",
+    "test": "lab -c -a code -r console -o stdout -r lab-markdown-reporter -o doc/coverage.md --coverage-path lib"
   },
   "repository": {
     "type": "git",
@@ -25,12 +24,18 @@
   },
   "devDependencies": {
     "code": "^5.2.0",
-    "eslint": "^5.0.1",
-    "eslint-config-hapi": "^12.0.0",
-    "eslint-config-skycatch": "^1.2.0",
-    "eslint-plugin-hapi": "^4.1.0",
     "jsdoc-to-markdown": "^4.0.1",
-    "lab": "^15.5.0",
-    "lab-markdown-reporter": "^1.0.2"
+    "husky": "^1.3.1",
+    "lab": "^18.0.2",
+    "lab-markdown-reporter": "^1.0.2",
+    "lint-staged": "^8.1.4",
+    "prettier-standard": "^9.1.1",
+    "standard": "*"
+  },
+  "lint-staged": {
+    "*.js": [
+      "prettier-standard",
+      "git add"
+    ]
   }
 }
