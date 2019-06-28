@@ -4,9 +4,9 @@
   "description": "coordinates & projections utility",
   "main": "index.js",
   "scripts": {
-    "document": "jsdoc2md -f 'lib/**/*.js' > doc/README.md",
+    "document": "jsdoc2md -f 'lib/**/*.js' > doc/API.md",
     "precommit": "lint-staged",
-    "test": "lab -c -a code -r console -o stdout -r lab-markdown-reporter -o doc/coverage.md --coverage-path lib -L"
+    "test": "lab -c -a code -r console -o stdout -r lab-markdown-reporter -o doc/coverage.md --coverage-path lib"
   },
   "repository": {
     "type": "git",
