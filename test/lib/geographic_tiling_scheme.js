@@ -77,7 +77,7 @@ describe('GeographicTilingScheme', () => {
   })
 
   describe('rectangleForPositionsAtLevel', () => {
-    it('should calculate the bounding rectangle in radians for a set of positions with NO buffer', () => {
+    it('should calculate the bounding rectangle in radians for a set of positions with a buffer applied', () => {
       const level = 14
 
       // Original gdalinfo bounds (UTM zone 10N)
@@ -97,12 +97,12 @@ describe('GeographicTilingScheme', () => {
         -0.001
       )
       expect(rect).to.equal({
-        west: -2.1358765085154223,
-        east: -2.1354929953521453,
-        south: 0.6599952250046442,
-        north: 0.6601869905694357,
-        width: 0.000383513163277005,
-        height: 0.00019176556479150175
+        west: -2.1358764905491165,
+        east: -2.135493013318451,
+        south: 0.65999524297095,
+        north: 0.66018697260313,
+        width: 0.00038347723066545214,
+        height: 0.00019172963217994887
       })
     })
   })
@@ -139,7 +139,7 @@ describe('GeographicTilingScheme', () => {
       })
     })
 
-    it('TI - should calculate the bounding rectangle in degrees for a set of positions with buffer applied', () => {
+    it('TI - should calculate the bounding rectangle in degrees for a set of positions with a buffer applied', () => {
       const level = 14
 
       // Corner Coordinates: UTM zone 10N
@@ -160,12 +160,12 @@ describe('GeographicTilingScheme', () => {
       )
 
       expect(rect).to.equal({
-        west: -122.37670949907174,
-        south: 37.814940891553256,
-        east: -122.35473581342825,
-        north: 37.82592824907175,
-        width: 0.02197368564348402,
-        height: 0.010987357518495586
+        west: -122.37670846967823,
+        south: 37.81494192094675,
+        east: -122.35473684282175,
+        north: 37.825927219678256,
+        width: 0.021971626856495157,
+        height: 0.010985298731506724
       })
     })
 
