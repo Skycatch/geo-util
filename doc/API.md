@@ -19,10 +19,13 @@ This class was inpsired by the Cesium class of the same name
         * [.positionToTileXY(lat, lon, level)](#GeographicTilingScheme+positionToTileXY) ⇒ <code>object</code>
         * [.tileXYToRectangle(x, y, level)](#GeographicTilingScheme+tileXYToRectangle)
         * [.tileXYToNativeRectangle(x, y, level)](#GeographicTilingScheme+tileXYToNativeRectangle)
-        * [.rectangleForPositionsAtLevel(positions, level)](#GeographicTilingScheme+rectangleForPositionsAtLevel) ⇒ <code>object</code>
-        * [.nativeRectangleForPositionsAtLevel(positions, level)](#GeographicTilingScheme+nativeRectangleForPositionsAtLevel) ⇒ <code>object</code>
+        * [.rectangleForPositionsAtLevel(positions, level, offset)](#GeographicTilingScheme+rectangleForPositionsAtLevel) ⇒ <code>object</code>
+        * [.nativeRectangleForPositionsAtLevel(positions, level, offset)](#GeographicTilingScheme+nativeRectangleForPositionsAtLevel) ⇒ <code>object</code>
         * [._toNativeRectangle(rectangle)](#GeographicTilingScheme+_toNativeRectangle) ⇒ <code>object</code>
+        * [.getLevelMaximumGeometricError(level)](#GeographicTilingScheme+getLevelMaximumGeometricError) ⇒ <code>number</code>
     * _static_
+        * [.ELLIPSOID_MAX_RADIUS](#GeographicTilingScheme.ELLIPSOID_MAX_RADIUS)
+        * [.ELLIPSOID_CIRCUMFERENCE](#GeographicTilingScheme.ELLIPSOID_CIRCUMFERENCE)
         * [.RECTANGLE](#GeographicTilingScheme.RECTANGLE)
 
 <a name="GeographicTilingScheme+getNumberOfXTilesAtLevel"></a>
@@ -113,31 +116,33 @@ Converts tile x, y coordinates and level to a rectangle expressed in the native 
 
 <a name="GeographicTilingScheme+rectangleForPositionsAtLevel"></a>
 
-### geographicTilingScheme.rectangleForPositionsAtLevel(positions, level) ⇒ <code>object</code>
+### geographicTilingScheme.rectangleForPositionsAtLevel(positions, level, offset) ⇒ <code>object</code>
 Compute the rectangle (bounding box) in radians that covers the tiles needed to contain the specified
 positions at the specified tile level-of-detail
 
 **Kind**: instance method of [<code>GeographicTilingScheme</code>](#GeographicTilingScheme)  
 **Returns**: <code>object</code> - Rectangle in radians  
 
-| Param | Type | Description |
-| --- | --- | --- |
-| positions | <code>array</code> | List of { lat, lon } positions |
-| level | <code>number</code> | Tile level-of-detail |
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| positions | <code>array</code> |  | List of { lat, lon } positions |
+| level | <code>number</code> |  | Tile level-of-detail |
+| offset | <code>number</code> | <code>0</code> | Uniform offset (in meters) to apply to the bounds, use negative to max the rectangle smaller |
 
 <a name="GeographicTilingScheme+nativeRectangleForPositionsAtLevel"></a>
 
-### geographicTilingScheme.nativeRectangleForPositionsAtLevel(positions, level) ⇒ <code>object</code>
+### geographicTilingScheme.nativeRectangleForPositionsAtLevel(positions, level, offset) ⇒ <code>object</code>
 Compute the rectangle (bounding box) in degrees that covers the tiles needed to contain the specified
 positions at the specified tile level-of-detail
 
 **Kind**: instance method of [<code>GeographicTilingScheme</code>](#GeographicTilingScheme)  
 **Returns**: <code>object</code> - Rectangle in degrees  
 
-| Param | Type | Description |
-| --- | --- | --- |
-| positions | <code>array</code> | List of { lat, lon } positions |
-| level | <code>number</code> | Tile level-of-detail |
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| positions | <code>array</code> |  | List of { lat, lon } positions |
+| level | <code>number</code> |  | Tile level-of-detail |
+| offset | <code>number</code> | <code>0</code> | Uniform offset (in meters) to apply to the bounds, use negative to max the rectangle smaller |
 
 <a name="GeographicTilingScheme+_toNativeRectangle"></a>
 
@@ -151,6 +156,31 @@ Convert a rectangle in radians to degrees
 | --- | --- | --- |
 | rectangle | <code>object</code> | Rectangle in radians |
 
+<a name="GeographicTilingScheme+getLevelMaximumGeometricError"></a>
+
+### geographicTilingScheme.getLevelMaximumGeometricError(level) ⇒ <code>number</code>
+Gets the maximum geometric error allowed in a tile at a given level.
+{@link_https://github.com/AnalyticalGraphicsInc/cesium/blob/1.58/Source/Core/TerrainProvider.js}
+
+**Kind**: instance method of [<code>GeographicTilingScheme</code>](#GeographicTilingScheme)  
+**Returns**: <code>number</code> - The maximum geometric error in meters  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| level | <code>number</code> | The tile level for which to get the maximum geometric error. |
+
+<a name="GeographicTilingScheme.ELLIPSOID_MAX_RADIUS"></a>
+
+### GeographicTilingScheme.ELLIPSOID_MAX_RADIUS
+WGS84 ellipsoid max radius
+
+**Kind**: static property of [<code>GeographicTilingScheme</code>](#GeographicTilingScheme)  
+<a name="GeographicTilingScheme.ELLIPSOID_CIRCUMFERENCE"></a>
+
+### GeographicTilingScheme.ELLIPSOID_CIRCUMFERENCE
+WGS84 ellipsoid circumference in meters
+
+**Kind**: static property of [<code>GeographicTilingScheme</code>](#GeographicTilingScheme)  
 <a name="GeographicTilingScheme.RECTANGLE"></a>
 
 ### GeographicTilingScheme.RECTANGLE

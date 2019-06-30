@@ -13,6 +13,29 @@ describe('GeographicTilingScheme', () => {
     tilingScheme = new GeographicTilingScheme()
   })
 
+  describe('constants', () => {
+    it('ELLIPSOID_MAX_RADIUS: equals 6378137', () => {
+      expect(GeographicTilingScheme.ELLIPSOID_MAX_RADIUS).to.equal(6378137)
+    })
+  })
+
+  describe('metersToDegrees', () => {
+    it('should convert meters to decimal degrees', () => {
+      const dd = tilingScheme.metersToDegrees(111.32)
+      expect(dd).to.be.about(0.001, 0.00001)
+    })
+  })
+
+  describe('getLevelMaximumGeometricError', () => {
+    it('should calculate the maximum geometric error at the given level', () => {
+      const e1 = tilingScheme.getLevelMaximumGeometricError(12)
+      expect(e1).to.equal(18.81526850096646)
+
+      const e2 = tilingScheme.getLevelMaximumGeometricError(14)
+      expect(e2).to.equal(4.703817125241615)
+    })
+  })
+
   describe('positionToTileXY', () => {
     it('should calculate the tile origin for lat=37.8238667 lon=-122.3681195 level=14}', () => {
       const { x, y } = tilingScheme.positionToTileXY(
@@ -69,7 +92,7 @@ describe('GeographicTilingScheme', () => {
   })
 
   describe('rectangleForPositionsAtLevel', () => {
-    it('should calculate the bounding rectangle in radians for a set of positions', () => {
+    it('should calculate the bounding rectangle in radians for a set of positions with a buffer applied', () => {
       const level = 14
 
       // Original gdalinfo bounds (UTM zone 10N)
@@ -83,23 +106,58 @@ describe('GeographicTilingScheme', () => {
         { lat: 37.8258039, lon: -122.3649134 },
         { lat: 37.8218978, lon: -122.3649469 }
       ]
-      const rect = tilingScheme.rectangleForPositionsAtLevel(positions, level)
+      const rect = tilingScheme.rectangleForPositionsAtLevel(
+        positions,
+        level,
+        -0.001
+      )
       expect(rect).to.equal({
-        west: -2.1358764995322694,
-        east: -2.135493004335298,
-        south: 0.6599952339877971,
-        north: 0.6601869815862829,
-        width: 0.0003834951969712286,
-        height: 0.0001917475984857253
+        west: -2.1358764905491165,
+        east: -2.135493013318451,
+        south: 0.65999524297095,
+        north: 0.66018697260313,
+        width: 0.00038347723066545214,
+        height: 0.00019172963217994887
       })
     })
   })
 
   describe('nativeRectangleForPositionsAtLevel', () => {
-    it('should calculate the bounding rectangle in degrees for a set of positions', () => {
+    it('TI - should calculate the bounding rectangle in degrees for a set of positions with NO buffer', () => {
       const level = 14
 
-      // Original gdalinfo bounds (UTM zone 10N)
+      // Corner Coordinates: UTM zone 10N
+      // Upper Left  (  555329.227, 4186677.853) (122d22'16.66"W, 37d49'33.02"N)
+      // Lower Left  (  555329.227, 4186244.453) (122d22'16.78"W, 37d49'18.96"N)
+      // Upper Right (  555890.827, 4186677.853) (122d21'53.69"W, 37d49'32.89"N)
+      // Lower Right (  555890.827, 4186244.453) (122d21'53.81"W, 37d49'18.83"N)
+      const positions = [
+        { lat: 37.8258381, lon: -122.3712945 },
+        { lat: 37.8219321, lon: -122.3713276 },
+        { lat: 37.8258039, lon: -122.3649134 },
+        { lat: 37.8218978, lon: -122.3649469 }
+      ]
+
+      // without buffer applied
+      const rect = tilingScheme.nativeRectangleForPositionsAtLevel(
+        positions,
+        level
+      )
+
+      expect(rect).to.equal({
+        west: -122.376708984375,
+        south: 37.81494140625,
+        east: -122.354736328125,
+        north: 37.825927734375,
+        width: 0.021972656249989588,
+        height: 0.010986328125001155
+      })
+    })
+
+    it('TI - should calculate the bounding rectangle in degrees for a set of positions with a buffer applied', () => {
+      const level = 14
+
+      // Corner Coordinates: UTM zone 10N
       // Upper Left  (  555329.227, 4186677.853) (122d22'16.66"W, 37d49'33.02"N)
       // Lower Left  (  555329.227, 4186244.453) (122d22'16.78"W, 37d49'18.96"N)
       // Upper Right (  555890.827, 4186677.853) (122d21'53.69"W, 37d49'32.89"N)
@@ -112,14 +170,46 @@ describe('GeographicTilingScheme', () => {
       ]
       const rect = tilingScheme.nativeRectangleForPositionsAtLevel(
         positions,
+        level,
+        -0.001
+      )
+
+      expect(rect).to.equal({
+        west: -122.37670846967823,
+        south: 37.81494192094675,
+        east: -122.35473684282175,
+        north: 37.825927219678256,
+        width: 0.021971626856495157,
+        height: 0.010985298731506724
+      })
+    })
+
+    it('Koriyama - should calculate the bounding rectangle in degrees for a set of positions with NO buffer', () => {
+      const level = 14
+
+      // Corner Coordinates: UTM zone 54N
+      // Upper Left  (  439825.243, 4144683.620) (140d19'10.91"E, 37d26'49.36"N)
+      // Lower Left  (  439825.243, 4144535.420) (140d19'10.96"E, 37d26'44.55"N)
+      // Upper Right (  439944.843, 4144683.620) (140d19'15.78"E, 37d26'49.39"N)
+      // Lower Right (  439944.843, 4144535.420) (140d19'15.82"E, 37d26'44.58"N)
+      // Center      (  439885.043, 4144609.520) (140d19'13.37"E, 37d26'46.97"N)
+      const positions = [
+        { lat: 37.447045, lon: 140.319698 },
+        { lat: 37.4457093, lon: 140.3197101 },
+        { lat: 37.4470528, lon: 140.32105 },
+        { lat: 37.445717, lon: 140.3210621 }
+      ]
+      const rect = tilingScheme.nativeRectangleForPositionsAtLevel(
+        positions,
         level
       )
+
       expect(rect).to.equal({
-        west: -122.376708984375,
-        south: 37.81494140625,
-        east: -122.354736328125,
-        north: 37.825927734375,
-        width: 0.021972656249989588,
+        west: 140.31738281250003,
+        south: 37.44140625,
+        east: 140.328369140625,
+        north: 37.452392578125,
+        width: 0.010986328124982072,
         height: 0.010986328125001155
       })
     })
