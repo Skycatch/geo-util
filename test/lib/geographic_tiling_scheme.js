@@ -19,7 +19,22 @@ describe('GeographicTilingScheme', () => {
     })
   })
 
-  describe('metersToDegrees', () => {})
+  describe('metersToDegrees', () => {
+    it('should convert meters to decimal degrees', () => {
+      const dd = tilingScheme.metersToDegrees(111.32)
+      expect(dd).to.be.about(0.001, 0.00001)
+    })
+  })
+
+  describe('getLevelMaximumGeometricError', () => {
+    it('should calculate the maximum geometric error at the given level', () => {
+      const e1 = tilingScheme.getLevelMaximumGeometricError(12)
+      expect(e1).to.equal(18.81526850096646)
+
+      const e2 = tilingScheme.getLevelMaximumGeometricError(14)
+      expect(e2).to.equal(4.703817125241615)
+    })
+  })
 
   describe('positionToTileXY', () => {
     it('should calculate the tile origin for lat=37.8238667 lon=-122.3681195 level=14}', () => {
