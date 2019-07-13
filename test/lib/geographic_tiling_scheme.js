@@ -214,4 +214,84 @@ describe('GeographicTilingScheme', () => {
       })
     })
   })
+
+  describe('tilePixelToPosition', () => {
+    it('should return the geographic x,y in radians for the given pixel of a 256x256 tile', () => {
+      const tilingScheme = new GeographicTilingScheme({
+        tilePixelWidth: 256,
+        tilePixelHeight: 256
+      })
+
+      const rectangle = tilingScheme.rectangleForPositionsAtLevel(
+        [{ lat: 37.8258381, lon: -122.3712945 }],
+        20
+      )
+
+      // pixel origin is bottom left
+
+      // get the southwest most position
+      const { x: x1, y: y1 } = tilingScheme.tilePixelToPosition(rectangle, 0, 0)
+      expect(x1).to.equal(rectangle.west)
+      expect(y1).to.equal(rectangle.south)
+
+      // get the northwest most position
+      const { x: x2, y: y2 } = tilingScheme.tilePixelToPosition(
+        rectangle,
+        0,
+        255
+      )
+      expect(x2).to.equal(rectangle.west)
+      expect(y2).to.equal(rectangle.north)
+
+      // get the northeast most position
+      const { x: x3, y: y3 } = tilingScheme.tilePixelToPosition(
+        rectangle,
+        255,
+        255
+      )
+      expect(x3).to.equal(rectangle.east)
+      expect(y3).to.equal(rectangle.north)
+
+      // get the southeast most position
+      const { x: x4, y: y4 } = tilingScheme.tilePixelToPosition(
+        rectangle,
+        255,
+        0
+      )
+      expect(x4).to.equal(rectangle.east)
+      expect(y4).to.equal(rectangle.south)
+
+      // check the center position
+      const center = 255 / 2
+      const { x: x5, y: y5 } = tilingScheme.tilePixelToPosition(
+        rectangle,
+        center,
+        center
+      )
+      expect(x5).to.equal(rectangle.west + rectangle.width / 2)
+      expect(y5).to.equal(rectangle.south + rectangle.height / 2)
+    })
+  })
+
+  describe('tilePixelToNativePosition', () => {
+    it('should return the geographic x,y in latlon for the given pixel of a 256x256 tile', () => {
+      const tilingScheme = new GeographicTilingScheme({
+        tilePixelWidth: 256,
+        tilePixelHeight: 256
+      })
+      const rectangle = tilingScheme.rectangleForPositionsAtLevel(
+        [{ lat: 37.8258381, lon: -122.3712945 }],
+        20
+      )
+
+      const center = 255 / 2
+      const { x, y } = tilingScheme.tilePixelToNativePosition(
+        rectangle,
+        center,
+        center
+      )
+      expect(x).to.equal(-122.37130165100096)
+      expect(y).to.equal(37.82584190368653)
+    })
+  })
 })
