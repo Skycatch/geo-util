@@ -37,7 +37,7 @@ describe('GeographicTilingScheme', () => {
   })
 
   describe('positionToTileXY', () => {
-    it('should calculate the tile origin for lat=37.8238667 lon=-122.3681195 level=14}', () => {
+    it('[XYZ format] should calculate the tile origin for lat=37.8238667 lon=-122.3681195 level=14}', () => {
       const { x, y } = tilingScheme.positionToTileXY(
         37.8238667,
         -122.3681195,
@@ -46,14 +46,51 @@ describe('GeographicTilingScheme', () => {
       expect(x).to.equal(5245)
       expect(y).to.equal(4749)
     })
+
+    it('[XYZ format] should calculate the tile origin for { lat: 37.8247935561, lon: -122.3671948879, level: 16 }', () => {
+      const { lat, lon, level } = {
+        lat: 37.8247935561,
+        lon: -122.3671948879,
+        level: 16
+      }
+      const { x, y } = tilingScheme.positionToTileXY(lat, lon, level)
+      expect(x).to.equal(20983)
+      expect(y).to.equal(18996)
+    })
+
+    it('[TMS format] should calculate the tile origin for { lat: 37.8247935561, lon: -122.3671948879, level: 16 }', () => {
+      const { lat, lon, level } = {
+        lat: 37.8247935561,
+        lon: -122.3671948879,
+        level: 16
+      }
+      const { x, y } = tilingScheme.positionToTileXY(lat, lon, level, true)
+      expect(x).to.equal(20983)
+      expect(y).to.equal(46539)
+    })
   })
 
   describe('tileXYToRectangle', () => {
-    it('should calculate the tile rectangle for the tile', () => {
+    it('[XYZ format] should calculate the tile rectangle for the tile', () => {
       const x = 5245
       const y = 4749
       const level = 14
       const rect = tilingScheme.tileXYToRectangle(x, y, level)
+      expect(rect).to.equal({
+        west: -2.1358764995322694,
+        south: 0.6599952339877971,
+        east: -2.135684751933784,
+        north: 0.6601869815862829,
+        width: 0.00019174759848570515,
+        height: 0.00019174759848570515
+      })
+    })
+
+    it('[TMS format] should calculate the tile rectangle for the tile', () => {
+      const x = 5245
+      const y = 11634
+      const level = 14
+      const rect = tilingScheme.tileXYToRectangle(x, y, level, true)
       expect(rect).to.equal({
         west: -2.1358764995322694,
         south: 0.6599952339877971,
@@ -73,13 +110,13 @@ describe('GeographicTilingScheme', () => {
       { lat: 37.8218978, lon: -122.3649469 }
     ]
 
-    it('should calculate the tiles needed to cover a set of positions', () => {
+    it('[XYZ format] should calculate the tiles needed to cover a set of positions', () => {
       const level = 14
       const tiles = tilingScheme.tilesForPositionsAtLevel(positions, level)
       expect(tiles).to.equal([{ x: 5245, y: 4749 }, { x: 5246, y: 4749 }])
     })
 
-    it('should calculate the tiles needed to cover a set of positions', () => {
+    it('[XYZ format] should calculate the tiles needed to cover a set of positions', () => {
       const level = 22
       const tiles = tilingScheme.tilesForPositionsAtLevel(positions, level)
       expect(tiles).to.equal([
@@ -92,7 +129,7 @@ describe('GeographicTilingScheme', () => {
   })
 
   describe('rectangleForPositionsAtLevel', () => {
-    it('should calculate the bounding rectangle in radians for a set of positions with a buffer applied', () => {
+    it('[XYZ format] should calculate the bounding rectangle in radians for a set of positions with a buffer applied', () => {
       const level = 14
 
       // Original gdalinfo bounds (UTM zone 10N)
@@ -123,7 +160,7 @@ describe('GeographicTilingScheme', () => {
   })
 
   describe('nativeRectangleForPositionsAtLevel', () => {
-    it('TI - should calculate the bounding rectangle in degrees for a set of positions with NO buffer', () => {
+    it('[XYZ format] TI - should calculate the bounding rectangle in degrees for a set of positions with NO buffer', () => {
       const level = 14
 
       // Corner Coordinates: UTM zone 10N
@@ -154,7 +191,7 @@ describe('GeographicTilingScheme', () => {
       })
     })
 
-    it('TI - should calculate the bounding rectangle in degrees for a set of positions with a buffer applied', () => {
+    it('[XYZ format] TI - should calculate the bounding rectangle in degrees for a set of positions with a buffer applied', () => {
       const level = 14
 
       // Corner Coordinates: UTM zone 10N
@@ -184,7 +221,7 @@ describe('GeographicTilingScheme', () => {
       })
     })
 
-    it('Koriyama - should calculate the bounding rectangle in degrees for a set of positions with NO buffer', () => {
+    it('[XYZ format] Koriyama - should calculate the bounding rectangle in degrees for a set of positions with NO buffer', () => {
       const level = 14
 
       // Corner Coordinates: UTM zone 54N
@@ -222,12 +259,11 @@ describe('GeographicTilingScheme', () => {
         tilePixelHeight: 256
       })
 
+      // Get the tile (XYZ format) rectangle for the specified position
       const rectangle = tilingScheme.rectangleForPositionsAtLevel(
         [{ lat: 37.8258381, lon: -122.3712945 }],
         20
       )
-
-      // pixel origin is bottom left
 
       // get the southwest most position
       const { x: x1, y: y1 } = tilingScheme.tilePixelToPosition(rectangle, 0, 0)
@@ -279,6 +315,8 @@ describe('GeographicTilingScheme', () => {
         tilePixelWidth: 256,
         tilePixelHeight: 256
       })
+
+      // Get the tile (XYZ format) rectangle for the specified position
       const rectangle = tilingScheme.rectangleForPositionsAtLevel(
         [{ lat: 37.8258381, lon: -122.3712945 }],
         20
