@@ -1,5 +1,5 @@
 # Code Quality Report  
-Thu Aug 15 2019 07:49:01 GMT-0700 (PDT)  
+Thu Aug 15 2019 08:08:48 GMT-0700 (PDT)  
   
 ## Tests
     
@@ -14,7 +14,7 @@ Thu Aug 15 2019 07:49:01 GMT-0700 (PDT)
 ✔ 2) ELLIPSOID_MAX_RADIUS: equals 6378137 (1 ms)  
   
 **metersToDegrees**  
-✔ 3) should convert meters to decimal degrees (0 ms)  
+✔ 3) should convert meters to decimal degrees (1 ms)  
   
 **getLevelMaximumGeometricError**  
 ✔ 4) should calculate the maximum geometric error at the given level (0 ms)  
@@ -37,12 +37,12 @@ Thu Aug 15 2019 07:49:01 GMT-0700 (PDT)
 ✔ 13) [XYZ format] should calculate the tiles needed to cover a set of positions (1 ms)  
   
 **rectangleForPositionsAtLevel**  
-✔ 14) [XYZ format] should calculate the bounding rectangle in radians for a set of positions with a buffer applied (1 ms)  
+✔ 14) [XYZ format] should calculate the bounding rectangle in radians for a set of positions with a buffer applied (0 ms)  
   
 **nativeRectangleForPositionsAtLevel**  
 ✔ 15) [XYZ format] TI - should calculate the bounding rectangle in degrees for a set of positions with NO buffer (0 ms)  
-✔ 16) [XYZ format] TI - should calculate the bounding rectangle in degrees for a set of positions with a buffer applied (0 ms)  
-✔ 17) [XYZ format] Koriyama - should calculate the bounding rectangle in degrees for a set of positions with NO buffer (1 ms)  
+✔ 16) [XYZ format] TI - should calculate the bounding rectangle in degrees for a set of positions with a buffer applied (1 ms)  
+✔ 17) [XYZ format] Koriyama - should calculate the bounding rectangle in degrees for a set of positions with NO buffer (0 ms)  
   
 **tilePixelToPosition**  
 ✔ 18) should return the geographic x,y in radians for the given pixel of a 256x256 tile (1 ms)  
@@ -53,13 +53,13 @@ Thu Aug 15 2019 07:49:01 GMT-0700 (PDT)
 **StereaUtil**  
   
 **StereaUtil#getProj4**  
-✔ 20) returns the proj4 string from lat/lon (1 ms)  
+✔ 20) returns the proj4 string from lat/lon (0 ms)  
   
 **StereaUtil#getCoord**  
-✔ 21) returns the projected coordinate (1 ms)  
+✔ 21) returns the projected coordinate (2 ms)  
   
 **StereaUtil#getLatLon**  
-✔ 22) returns the lat lon coordinate (0 ms)  
+✔ 22) returns the lat lon coordinate (1 ms)  
   
 **UtmUtil**  
   
@@ -68,18 +68,18 @@ Thu Aug 15 2019 07:49:01 GMT-0700 (PDT)
 ✔ 24) throws an error on invalid lat/lon (0 ms)  
   
 **UtmUtil#getProj4**  
-✔ 25) returns the proj4 string (1 ms)  
-✔ 26) throws an error on invalid utm zone (0 ms)  
+✔ 25) returns the proj4 string (2 ms)  
+✔ 26) throws an error on invalid utm zone (1 ms)  
   
 **UtmUtil#getCoord**  
-✔ 27) returns the UTM coordinate (2 ms)  
-✔ 28) returns the UTM coordinate of given zone (0 ms)  
+✔ 27) returns the UTM coordinate (4 ms)  
+✔ 28) returns the UTM coordinate of given zone (2 ms)  
   
 **UtmUtil#getLatLon**  
 ✔ 29) returns the lat/lon coordinate (1 ms)  
   
 **UtmUtil#getCustomProj4**  
-✔ 30) returns proj4 string for any given lat/lon (1 ms)  
+✔ 30) returns proj4 string for any given lat/lon (0 ms)  
   
 **UtmUtil#getEPSGCode**  
 ✔ 31) returns ESPG code for any given lat/lon (0 ms)  
@@ -89,7 +89,7 @@ Thu Aug 15 2019 07:49:01 GMT-0700 (PDT)
 0 tests failed  
 0 tests skipped  
   
-Test duration: 34 ms  
+Test duration: 46 ms  
   
   
 ## Leaks  
