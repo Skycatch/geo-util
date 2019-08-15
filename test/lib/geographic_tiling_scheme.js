@@ -37,7 +37,7 @@ describe('GeographicTilingScheme', () => {
   })
 
   describe('positionToTileXY', () => {
-    it('should calculate the tile origin for lat=37.8238667 lon=-122.3681195 level=14}', () => {
+    it('[XYZ format] should calculate the tile origin for lat=37.8238667 lon=-122.3681195 level=14}', () => {
       const { x, y } = tilingScheme.positionToTileXY(
         37.8238667,
         -122.3681195,
@@ -46,10 +46,32 @@ describe('GeographicTilingScheme', () => {
       expect(x).to.equal(5245)
       expect(y).to.equal(4749)
     })
+
+    it('[XYZ format] should calculate the tile origin for { lat: 37.8247935561, lon: -122.3671948879, level: 16 }', () => {
+      const { lat, lon, level } = {
+        lat: 37.8247935561,
+        lon: -122.3671948879,
+        level: 16
+      }
+      const { x, y } = tilingScheme.positionToTileXY(lat, lon, level)
+      expect(x).to.equal(20983)
+      expect(y).to.equal(18996)
+    })
+
+    it('[TMS format] should calculate the tile origin for { lat: 37.8247935561, lon: -122.3671948879, level: 16 }', () => {
+      const { lat, lon, level } = {
+        lat: 37.8247935561,
+        lon: -122.3671948879,
+        level: 16
+      }
+      const { x, y } = tilingScheme.positionToTileXY(lat, lon, level, true)
+      expect(x).to.equal(20983)
+      expect(y).to.equal(46539)
+    })
   })
 
   describe('tileXYToRectangle', () => {
-    it('should calculate the tile rectangle for the tile', () => {
+    it('[XYZ format] should calculate the tile rectangle for the tile', () => {
       const x = 5245
       const y = 4749
       const level = 14
@@ -63,6 +85,53 @@ describe('GeographicTilingScheme', () => {
         height: 0.00019174759848570515
       })
     })
+
+    it('[TMS format | x=5245 y=11634] should calculate the tile rectangle for the tile', () => {
+      const x = 5245
+      const y = 11634
+      const level = 14
+      const rect = tilingScheme.tileXYToRectangle(x, y, level, true)
+      expect(rect).to.equal({
+        west: -2.1358764995322694,
+        south: 0.6599952339877971,
+        east: -2.135684751933784,
+        north: 0.6601869815862829,
+        width: 0.00019174759848570515,
+        height: 0.00019174759848570515
+      })
+    })
+
+    it('[TMS format | x=83935 y=186155] should calculate the tile rectangle for the tile', () => {
+      const x = 83935
+      const y = 186155
+      const level = 18
+      const rect = tilingScheme.tileXYToRectangle(x, y, level, true)
+      expect(rect).to.equal({
+        west: -2.1356967361586894,
+        south: 0.6601270604617561,
+        east: -2.135684751933784,
+        north: 0.6601390446866614,
+        width: 0.000011984224905356572,
+        height: 0.000011984224905356572
+      })
+    })
+  })
+
+  describe('tileXYToNativeRectangle', () => {
+    it('[TMS format | x=83935 y=186155] should calculate the tile rectangle for the tile', () => {
+      const x = 83935
+      const y = 186155
+      const level = 18
+      const rect = tilingScheme.tileXYToNativeRectangle(x, y, level, true)
+      expect(rect).to.equal({
+        west: -122.36640930175781,
+        south: 37.82249450683594,
+        east: -122.36572265625,
+        north: 37.82318115234375,
+        width: 0.0006866455078125,
+        height: 0.0006866455078125
+      })
+    })
   })
 
   describe('tilesForPositionsAtLevel', () => {
@@ -73,13 +142,13 @@ describe('GeographicTilingScheme', () => {
       { lat: 37.8218978, lon: -122.3649469 }
     ]
 
-    it('should calculate the tiles needed to cover a set of positions', () => {
+    it('[XYZ format] should calculate the tiles needed to cover a set of positions', () => {
       const level = 14
       const tiles = tilingScheme.tilesForPositionsAtLevel(positions, level)
       expect(tiles).to.equal([{ x: 5245, y: 4749 }, { x: 5246, y: 4749 }])
     })
 
-    it('should calculate the tiles needed to cover a set of positions', () => {
+    it('[XYZ format] should calculate the tiles needed to cover a set of positions', () => {
       const level = 22
       const tiles = tilingScheme.tilesForPositionsAtLevel(positions, level)
       expect(tiles).to.equal([
@@ -92,7 +161,7 @@ describe('GeographicTilingScheme', () => {
   })
 
   describe('rectangleForPositionsAtLevel', () => {
-    it('should calculate the bounding rectangle in radians for a set of positions with a buffer applied', () => {
+    it('[XYZ format] should calculate the bounding rectangle in radians for a set of positions with a buffer applied', () => {
       const level = 14
 
       // Original gdalinfo bounds (UTM zone 10N)
@@ -123,7 +192,7 @@ describe('GeographicTilingScheme', () => {
   })
 
   describe('nativeRectangleForPositionsAtLevel', () => {
-    it('TI - should calculate the bounding rectangle in degrees for a set of positions with NO buffer', () => {
+    it('[XYZ format] TI - should calculate the bounding rectangle in degrees for a set of positions with NO buffer', () => {
       const level = 14
 
       // Corner Coordinates: UTM zone 10N
@@ -154,7 +223,7 @@ describe('GeographicTilingScheme', () => {
       })
     })
 
-    it('TI - should calculate the bounding rectangle in degrees for a set of positions with a buffer applied', () => {
+    it('[XYZ format] TI - should calculate the bounding rectangle in degrees for a set of positions with a buffer applied', () => {
       const level = 14
 
       // Corner Coordinates: UTM zone 10N
@@ -184,7 +253,7 @@ describe('GeographicTilingScheme', () => {
       })
     })
 
-    it('Koriyama - should calculate the bounding rectangle in degrees for a set of positions with NO buffer', () => {
+    it('[XYZ format] Koriyama - should calculate the bounding rectangle in degrees for a set of positions with NO buffer', () => {
       const level = 14
 
       // Corner Coordinates: UTM zone 54N
@@ -212,6 +281,87 @@ describe('GeographicTilingScheme', () => {
         width: 0.010986328124982072,
         height: 0.010986328125001155
       })
+    })
+  })
+
+  describe('tilePixelToPosition', () => {
+    it('should return the geographic x,y in radians for the given pixel of a 256x256 tile', () => {
+      const tilingScheme = new GeographicTilingScheme({
+        tilePixelWidth: 256,
+        tilePixelHeight: 256
+      })
+
+      // Get the tile (XYZ format) rectangle for the specified position
+      const rectangle = tilingScheme.rectangleForPositionsAtLevel(
+        [{ lat: 37.8258381, lon: -122.3712945 }],
+        20
+      )
+
+      // get the southwest most position
+      const { x: x1, y: y1 } = tilingScheme.tilePixelToPosition(rectangle, 0, 0)
+      expect(x1).to.equal(rectangle.west)
+      expect(y1).to.equal(rectangle.south)
+
+      // get the northwest most position
+      const { x: x2, y: y2 } = tilingScheme.tilePixelToPosition(
+        rectangle,
+        0,
+        255
+      )
+      expect(x2).to.equal(rectangle.west)
+      expect(y2).to.equal(rectangle.north)
+
+      // get the northeast most position
+      const { x: x3, y: y3 } = tilingScheme.tilePixelToPosition(
+        rectangle,
+        255,
+        255
+      )
+      expect(x3).to.equal(rectangle.east)
+      expect(y3).to.equal(rectangle.north)
+
+      // get the southeast most position
+      const { x: x4, y: y4 } = tilingScheme.tilePixelToPosition(
+        rectangle,
+        255,
+        0
+      )
+      expect(x4).to.equal(rectangle.east)
+      expect(y4).to.equal(rectangle.south)
+
+      // check the center position
+      const center = 255 / 2
+      const { x: x5, y: y5 } = tilingScheme.tilePixelToPosition(
+        rectangle,
+        center,
+        center
+      )
+      expect(x5).to.equal(rectangle.west + rectangle.width / 2)
+      expect(y5).to.equal(rectangle.south + rectangle.height / 2)
+    })
+  })
+
+  describe('tilePixelToNativePosition', () => {
+    it('should return the geographic x,y in latlon for the given pixel of a 256x256 tile', () => {
+      const tilingScheme = new GeographicTilingScheme({
+        tilePixelWidth: 256,
+        tilePixelHeight: 256
+      })
+
+      // Get the tile (XYZ format) rectangle for the specified position
+      const rectangle = tilingScheme.rectangleForPositionsAtLevel(
+        [{ lat: 37.8258381, lon: -122.3712945 }],
+        20
+      )
+
+      const center = 255 / 2
+      const { x, y } = tilingScheme.tilePixelToNativePosition(
+        rectangle,
+        center,
+        center
+      )
+      expect(x).to.equal(-122.37130165100096)
+      expect(y).to.equal(37.82584190368653)
     })
   })
 })
