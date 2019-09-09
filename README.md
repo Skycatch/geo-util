@@ -5,10 +5,10 @@ geo utilities for projections &amp; coordinate conversions
 
 ```
 31 tests complete
-Test duration: 46 ms
-Assertions count: 87 (verbosity: 2.81)
+Test duration: 45 ms
+Assertions count: 90 (verbosity: 2.90)
 No global variable leaks detected
-Coverage: 95.62% (13/297)
-lib/geographic_tiling_scheme.js missing coverage on line(s): 57, 59, 60, 124, 127, 227, 321, 322, 325, 326, 336, 337
+Coverage: 96.13% (12/310)
+lib/geographic_tiling_scheme.js missing coverage on line(s): 57, 59, 60, 124, 127, 344, 345, 348, 349, 359, 360
 lib/utm_util.js missing coverage on line(s): 7
 ```
