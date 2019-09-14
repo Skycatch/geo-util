@@ -132,6 +132,36 @@ describe('GeographicTilingScheme', () => {
         height: 0.0006866455078125
       })
     })
+
+    it('[TMS format | x=83935 y=186155] should calculate the tile rectangle for the tile', () => {
+      const level = 19
+      const x = 167861
+      const tmsY = 372312
+      const rect = tilingScheme.tileXYToNativeRectangle(x, tmsY, level, true)
+      expect(rect).to.equal({
+        west: -122.36949920654297,
+        south: 37.82318115234375,
+        east: -122.36915588378906,
+        north: 37.823524475097656,
+        width: 0.00034332275390625,
+        height: 0.00034332275390625
+      })
+    })
+
+    it('[TMS format | x=83935 y=186155] should calculate the tile rectangle for the tile even if xy are strings', () => {
+      const level = '19'
+      const x = '167861'
+      const tmsY = '372312'
+      const rect = tilingScheme.tileXYToNativeRectangle(x, tmsY, level, true)
+      expect(rect).to.equal({
+        west: -122.36949920654297,
+        south: 37.82318115234375,
+        east: -122.36915588378906,
+        north: 37.823524475097656,
+        width: 0.00034332275390625,
+        height: 0.00034332275390625
+      })
+    })
   })
 
   describe('tilesForPositionsAtLevel', () => {
