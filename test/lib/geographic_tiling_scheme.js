@@ -33,6 +33,12 @@ describe('GeographicTilingScheme', () => {
 
       const e2 = tilingScheme.getLevelMaximumGeometricError(14)
       expect(e2).to.equal(4.703817125241615)
+
+      const e3 = tilingScheme.getLevelMaximumGeometricError(17)
+      expect(e3).to.equal(0.5879771406552019)
+
+      const e4 = tilingScheme.getLevelMaximumGeometricError(18)
+      expect(e4).to.equal(0.29398857032760095)
     })
   })
 
