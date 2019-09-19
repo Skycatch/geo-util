@@ -21,8 +21,20 @@ describe('GeographicTilingScheme', () => {
 
   describe('metersToDegrees', () => {
     it('should convert meters to decimal degrees', () => {
+      const dd = GeographicTilingScheme.metersToDegrees(111.32)
+      expect(dd).to.be.about(0.001, 0.00001)
+    })
+
+    it('DEPRECATED: should convert meters to decimal degrees', () => {
       const dd = tilingScheme.metersToDegrees(111.32)
       expect(dd).to.be.about(0.001, 0.00001)
+    })
+  })
+
+  describe('degreesToMeters', () => {
+    it('should convert meters to decimal degrees', () => {
+      const m = GeographicTilingScheme.degreesToMeters(0.001)
+      expect(m).to.be.about(111.32, 0.01)
     })
   })
 
