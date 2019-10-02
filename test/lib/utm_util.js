@@ -14,7 +14,8 @@ describe('UtmUtil', () => {
       const goodPoints = [
         { lat: 37, lon: -122, zone: '10N' },
         { lat: 3, lon: 4, zone: '31N' },
-        { lat: -34.5, lon: 34, zone: '36S' }
+        { lat: -34.5, lon: 34, zone: '36S' },
+        { lat: 68.048, lon: -162.879, zone: '3N' }
       ]
 
       for (const point of goodPoints) {
@@ -215,7 +216,8 @@ describe('UtmUtil', () => {
       const points = [
         { lat: 38, lon: -122, epsg: 'epsg:32610' },
         { lat: -38, lon: -122, epsg: 'epsg:32710' },
-        { lat: 38, lon: -100, epsg: 'epsg:32614' }
+        { lat: 38, lon: -100, epsg: 'epsg:32614' },
+        { lat: 68.048, lon: -162.879, epsg: 'epsg:32603' }
       ]
 
       for (const point of points) {
