@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [v1.1.5]
+- fix(utm_util): utm zones less than 10 would return incorrect EPSG code
+
 ## [v1.1.4]
 - feature(GeographicTilingScheme): add `degreesToMeters` static method
 - feature(GeographicTilingScheme): deprecated instance methods `toRadians` `toDegrees` and `metersToDegrees` in favor of static methods
