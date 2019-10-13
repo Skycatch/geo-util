@@ -190,19 +190,40 @@ describe('GeographicTilingScheme', () => {
       { lat: 37.8218978, lon: -122.3649469 }
     ]
 
-    it('[XYZ format] should calculate the tiles needed to cover a set of positions', () => {
+    it('[DEPRECATED - positional args | XYZ format] should calculate the tiles needed to cover a set of positions', () => {
       const level = 14
       const tiles = tilingScheme.tilesForPositionsAtLevel(positions, level)
       expect(tiles).to.equal([{ x: 5245, y: 4749 }, { x: 5246, y: 4749 }])
     })
 
-    it('[XYZ format] should calculate the tiles needed to cover a set of positions', () => {
+    it('[DEPRECATED - positional args | XYZ format] should calculate the tiles needed to cover a set of positions', () => {
       const level = 22
       const tiles = tilingScheme.tilesForPositionsAtLevel(positions, level)
       expect(tiles[0]).to.equal({ x: 1342845, y: 1215746 })
       expect(tiles[10]).to.equal({ x: 1342855, y: 1215746 })
       expect(tiles[tiles.length - 1]).to.equal({ x: 1342994, y: 1215837 })
       expect(tiles.length).to.equal(13800)
+    })
+
+    it('[XYZ format] should calculate the tiles needed to cover a set of positions', () => {
+      const level = 22
+      const tiles = tilingScheme.tilesForPositionsAtLevel({ positions, level })
+      expect(tiles[0]).to.equal({ x: 1342845, y: 1215746 })
+      expect(tiles[10]).to.equal({ x: 1342855, y: 1215746 })
+      expect(tiles[tiles.length - 1]).to.equal({ x: 1342994, y: 1215837 })
+      expect(tiles.length).to.equal(13800)
+    })
+
+    it('[XYZ format | useBbbox=false] should calculate the tiles needed to cover a set of positions but NOT the entire bbox', () => {
+      const level = 22
+      const tiles = tilingScheme.tilesForPositionsAtLevel({
+        positions,
+        level,
+        useBbox: false
+      })
+      expect(tiles[0]).to.equal({ x: 1342846, y: 1215746 })
+      expect(tiles[tiles.length - 1]).to.equal({ x: 1342994, y: 1215837 })
+      expect(tiles.length).to.equal(positions.length)
     })
   })
 
